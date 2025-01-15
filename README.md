@@ -23,4 +23,18 @@
 ## API 명세
 | 기능 | url | HttpMethod | request | response | HttpStattus |
 |-----|-----|------------|---------|----------|-------------|
+| 회원가입 | `/users/signup` | `POST` | { "userName": "String", "email": "String", "password": "String" } | { "userId": "Long", "userName": "String", "email": "String", "createdDate": "LocalDateTime" } | `201` |
+| 유저 다건 조회 | `/users` | `GET` | - | [ { "userId": "Long", "userName": "String", "nickName": "String" } ] | `200` |
+| 유저 단건 조회 | `/users/{userId}` | `GET` | - | { "userId": "Long", "userName": "String", "email": "String", "nickName": "String", "birthDate": "String", "profileComment": "String", "createdDate": "LocalDateTime" } | `200` |
+| 프로필 수정 | `/users/update/{userId}` | `PATCH` | { "password": "String", "userName": "String", "email": "String", "nickName": "String", "birthDate": "String", "profileComment": "String" } | { "userId": "Long", "userName": "String", "email": "String", "nickName": "String", "birthDate": "String", "profileComment": "String", "updatedDate": "LocalDateTime" } | `200` |
+| 비밀번호 수정 | `/users/password/{userId}` | `PATCH` | - | - | `200` |
+| 회원 탈퇴 | `/login/{userId}` | `DELETE` | { "password": "String" } | - | `204` |
+| 로그인 | `/login` | `POST` | - | - | `200` |
+| 로그아웃 | `/login/logout` | `DELETE` | - | - | `204` |
+| 게시글 생성 | `/newsfeeds` | `POST` | { "title": "String", "contents": "String" } | { "newsFeedId": "Long", "title": "String", "author": "nickName" , "contents": "String", "createdDate": "LocalDateTime" } | `201` |
+| 게시글 다건 조회 | `/newsfeeds` | `GET` | - | [ { "title": "String", "author": "nickName", "createdDate": "LocalDateTime" } ] | `200` |
+| 게시글 단건 조회 | `/newsfeeds/{id}` | `GET` | - | { "newsFeedId": "Long", "title": "String", "author": "nickName", "contents": "String", "updatedDate": "LocalDateTime" }
+| 게시글 수정 | `/newsfeeds/{id}` | `PATCH` | { "title": "String", "contents": "String" } | { "newsFeedId": "Long", "title": "String", "author": "nickName", "contents": "String", "updatedDate": "LocalDateTime" } | `200` |
+| 게시글 삭제 | `/newsfeeds/{id}` | `DELETE` | - | - | `200` |
+
 ---
