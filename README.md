@@ -35,6 +35,6 @@
 | 게시글 다건 조회 | `/newsfeeds` | `GET` | - | [ { "title": "String", "author": "nickName", "createdDate": "LocalDateTime" } ] | `200` |
 | 게시글 단건 조회 | `/newsfeeds/{id}` | `GET` | - | { "newsFeedId": "Long", "title": "String", "author": "nickName", "contents": "String", "updatedDate": "LocalDateTime" }
 | 게시글 수정 | `/newsfeeds/{id}` | `PATCH` | { "title": "String", "contents": "String" } | { "newsFeedId": "Long", "title": "String", "author": "nickName", "contents": "String", "updatedDate": "LocalDateTime" } | `200` |
-| 게시글 삭제 | `/newsfeeds/{id}` | `DELETE` | - | - | `200` |
+| 게시글 삭제 | `/newsfeeds/{id}` | `DELETE` | - | - | `204` |
 
 ---
