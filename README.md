@@ -28,7 +28,7 @@
 | 유저 단건 조회 | `/users/{userId}` | `GET` | - | { "userId": "Long", "userName": "String", "email": "String", "nickName": "String", "birthDate": "String", "profileComment": "String", "createdDate": "LocalDateTime" } | `200` | - |
 | 프로필 수정 | `/users/update/{userId}` | `PATCH` | { "password": "String", "userName": "String", "email": "String", "nickName": "String", "birthDate": "String", "profileComment": "String" } | { "userId": "Long", "userName": "String", "email": "String", "nickName": "String", "birthDate": "String", "profileComment": "String", "updatedDate": "LocalDateTime" } | `200` | { "JsessionId": } |
 | 비밀번호 수정 | `/users/password/{userId}` | `PATCH` | { "oldPassword": "String", "newPassword": "String" } | - | `200` | { "JsessionId": } |
-| 회원 탈퇴 | `/users/{userId}` | `DELETE` | { "password": "String" } | - | `204` | { "JsessionId": } |
+| 회원 탈퇴 | `/users/delete/{userId}` | `DELETE` | { "password": "String" } | - | `204` | { "JsessionId": } |
 | 로그인 | `/login` | `POST` | { "email": "String", "password": "String" } | - | `200` | - | { "JsessionId": } |
 | 로그아웃 | `/logout` | `DELETE` | - | - | `204` | { "JsessionId": } |
 | 게시글 생성 | `/newsfeeds` | `POST` | { "title": "String", "contents": "String" } | { "newsFeedId": "Long", "title": "String", "author": "nickName" , "contents": "String", "createdDate": "LocalDateTime" } | `201` | { "JsessionId": } | - |
