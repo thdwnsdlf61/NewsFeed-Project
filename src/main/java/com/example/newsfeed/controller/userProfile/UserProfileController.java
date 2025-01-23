@@ -7,6 +7,7 @@ import com.example.newsfeed.dto.userProfile.response.GetAllProfileResponseDto;
 import com.example.newsfeed.dto.userProfile.response.GetUserProfileResponseDto;
 import com.example.newsfeed.dto.userProfile.response.UserUpdateResponseDto;
 import com.example.newsfeed.service.userProfile.UserProfileService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,39 +29,40 @@ public class UserProfileController {
         return new ResponseEntity<>(allProfile, HttpStatus.OK);
     }
 
-    @GetMapping("/{userName}")
-    public ResponseEntity<GetUserProfileResponseDto> getUserProfileAPI(@PathVariable String userName) {
-        GetUserProfileResponseDto getUserProfile = userProfileService.getUserProfile(userName);
+    @GetMapping("/{userId}")
+    public ResponseEntity<GetUserProfileResponseDto> getUserProfileAPI(@PathVariable Long userId) {
+        GetUserProfileResponseDto getUserProfile = userProfileService.getUserProfile(userId);
         return new ResponseEntity<>(getUserProfile, HttpStatus.OK);
     }
 
-    @PatchMapping("/update/{userName}")
+    @PatchMapping("/profile")
     public ResponseEntity<UserUpdateResponseDto> updateProfileAPI(
-            @PathVariable String userName,
             @Validated @RequestBody UserUpdateRequestDto requestDto,
-            HttpSession session
-    ) {
-        UserUpdateResponseDto updateUser = userProfileService.updateProfile(userName, requestDto, session);
+            HttpServletRequest servletRequest
+            ) {
+        Long userId = (Long) servletRequest.getAttribute("userId");
+        UserUpdateResponseDto updateUser = userProfileService.updateProfile(userId, requestDto);
         return new ResponseEntity<>(updateUser, HttpStatus.OK);
     }
 
-    @PatchMapping("/password/{userName}")
+    @PatchMapping("/password")
     public ResponseEntity<String> updatePasswordAPI(
-            @PathVariable String userName,
             @Validated @RequestBody UpdatePasswordRequestDto requestDto,
-            HttpSession session
+            HttpServletRequest servletRequest
     ) {
-        userProfileService.updatePassword(userName, requestDto, session);
+        Long userId = (Long) servletRequest.getAttribute("userId");
+        userProfileService.updatePassword(userId, requestDto);
         return new ResponseEntity<>("비밀변호가 변경되었습니다.", HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{userName}")
-    public ResponseEntity<String> deleteUserAPI(
-            @PathVariable String userName,
-            @RequestBody UserDeleteRequestDto requestDto
-    ) {
-        userProfileService.deleteUser(userName, requestDto);
-
-        return new ResponseEntity<>("회원탈퇴 성공.", HttpStatus.NO_CONTENT);
-    }
+//    @DeleteMapping("/delete/{userId}")
+//    public ResponseEntity<String> deleteUserAPI(
+//            @PathVariable Long userId,
+//            @RequestBody UserDeleteRequestDto requestDto,
+//            HttpSession session
+//    ) {
+//        userProfileService.deleteUser(userId, requestDto, session);
+//
+//        return new ResponseEntity<>("회원탈퇴 성공.", HttpStatus.NO_CONTENT);
+//    }
 }

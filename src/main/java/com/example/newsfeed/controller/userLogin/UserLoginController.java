@@ -31,16 +31,25 @@ public class UserLoginController {
 
     @PostMapping("/login")
     public ResponseEntity<UserLoginResponseDto> userLoginAPI(
-            @Validated @RequestBody UserLoginRequestDto requestDto,
-            HttpServletRequest httpRequest
+            @Validated @RequestBody UserLoginRequestDto requestDto
     ) {
-        UserLoginResponseDto loginUser = userLoginService.login(requestDto);
+        UserLoginResponseDto loginResponseDto = userLoginService.login(requestDto);
 
-        HttpSession session = httpRequest.getSession();
-        session.setAttribute(Const.LOGIN_USER, loginUser);
-
-        return new ResponseEntity<>(loginUser, HttpStatus.OK);
+        return new ResponseEntity<>(loginResponseDto, HttpStatus.OK);
     }
+
+//    @PostMapping("/login")
+//    public ResponseEntity<UserLoginResponseDto> userLoginAPI(
+//            @Validated @RequestBody UserLoginRequestDto requestDto,
+//            HttpServletRequest httpRequest
+//    ) {
+//        UserLoginResponseDto loginUser = userLoginService.login(requestDto);
+//
+//        HttpSession session = httpRequest.getSession();
+//        session.setAttribute(Const.LOGIN_USER, loginUser);
+//
+//        return new ResponseEntity<>(loginUser, HttpStatus.OK);
+//    }
 
     @DeleteMapping("/logout")
     public ResponseEntity<String> logoutAPI(HttpServletRequest httpRequest) {
